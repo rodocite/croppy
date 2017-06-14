@@ -6,6 +6,8 @@ defmodule Croppy.ImageUploader do
 
   @versions [:original]
 
+  def __storage, do: Arc.Storage.Local
+
   # To add a thumbnail version:
   # @versions [:original, :thumb]
 
