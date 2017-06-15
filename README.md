@@ -1,9 +1,10 @@
 # Croppy
 
 Ideas
- - unique hash for image storage
+ - store original images on AWS
  - use Rust/C for image manipulation compute via Elixir NIFs
 
 ?
-  - How should I store the images?
+  - unique hash for image storage or access
+  - How would the usage/API look?
   - Shape of URL?
