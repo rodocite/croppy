@@ -7,13 +7,17 @@ defmodule Croppy.ImageController do
     render(conn, "index.html", images: images)
   end
 
+  def index_json(conn, _) do
+    images = Repo.all(Image)
+    render(conn, "index.json", images: images)
+  end
+
   def new(conn, _) do
     changeset = Image.changeset(%Image{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"image" => image_params}) do
-    IO.inspect image_params
     changeset = Image.changeset(%Image{}, image_params)
     case Repo.insert(changeset) do
       {:ok, image} ->

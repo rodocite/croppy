@@ -19,4 +19,10 @@ defmodule Croppy.Router do
     get "/", PageController, :index
     resources "/images", ImageController
   end
+
+  scope "/api", Croppy do
+    pipe_through :api
+
+    get "/images", ImageController, :index_json
+  end
 end
