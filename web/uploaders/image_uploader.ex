@@ -1,4 +1,4 @@
-defmodule Croppy.ImageUploader do
+defmodule Croppy.ImageUpload do
   use Arc.Definition
   use Arc.Ecto.Definition
   # Include ecto support (requires package arc_ecto installed):

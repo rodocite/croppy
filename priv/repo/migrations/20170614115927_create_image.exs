@@ -3,7 +3,7 @@ defmodule Croppy.Repo.Migrations.CreateImage do
 
   def change do
     create table(:images) do
-      add :url, :string
+      add :image, :string
 
       timestamps()
     end

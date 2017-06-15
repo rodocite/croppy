@@ -3,7 +3,7 @@ defmodule Croppy.Image do
   use Arc.Ecto.Schema
 
   schema "images" do
-    field :url, Croppy.ImageUploader.Type
+    field :image, Croppy.ImageUpload.Type
 
     timestamps()
   end
@@ -13,8 +13,7 @@ defmodule Croppy.Image do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:url])
-    |> cast_attachments(params, [:url])
-    |> validate_required([:url])
+    |> cast(params, [:image])
+    |> cast_attachments(params, [:image])
   end
 end

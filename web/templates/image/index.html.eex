@@ -1,0 +1,4 @@
+<h4><%= link "Upload new image", to: image_path(@conn, :new) %></h4>
+<%= for image <- @images do %>
+  <img src="<%= Croppy.ImageUpload.url({image.image, image})%>"><br>
+<% end %>

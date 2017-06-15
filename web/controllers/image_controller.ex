@@ -1,55 +1,29 @@
 defmodule Croppy.ImageController do
   use Croppy.Web, :controller
-
   alias Croppy.Image
 
-  def index(conn, _params) do
+  def index(conn, _) do
     images = Repo.all(Image)
-    render(conn, "index.json", images: images)
+    render(conn, "index.html", images: images)
+  end
+
+  def new(conn, _) do
+    changeset = Image.changeset(%Image{})
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"image" => image_params}) do
+    IO.inspect image_params
     changeset = Image.changeset(%Image{}, image_params)
-
     case Repo.insert(changeset) do
       {:ok, image} ->
         conn
-        |> put_status(:created)
-        |> put_resp_header("location", image_path(conn, :show, image))
-        |> render("show.json", image: image)
+        |> put_flash(:info, "Image was added")
+        |> redirect(to: image_path(conn, :index))
       {:error, changeset} ->
         conn
-        |> put_status(:unprocessable_entity)
-        |> render(Croppy.ChangesetView, "error.json", changeset: changeset)
+        |> put_flash(:error, "Something went wrong")
+        |> render("new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    image = Repo.get!(Image, id)
-    render(conn, "show.json", image: image)
-  end
-
-  def update(conn, %{"id" => id, "image" => image_params}) do
-    image = Repo.get!(Image, id)
-    changeset = Image.changeset(image, image_params)
-
-    case Repo.update(changeset) do
-      {:ok, image} ->
-        render(conn, "show.json", image: image)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render(Croppy.ChangesetView, "error.json", changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    image = Repo.get!(Image, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(image)
-
-    send_resp(conn, :no_content, "")
   end
 end
