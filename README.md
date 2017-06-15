@@ -2,6 +2,7 @@
 
 Ideas
  - store original images on AWS
+ - apply light image optimization on upload
  - use Rust/C for image manipulation compute via Elixir NIFs
 
 ?
