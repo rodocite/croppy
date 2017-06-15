@@ -24,5 +24,6 @@ defmodule Croppy.Router do
     pipe_through :api
 
     get "/images", ImageController, :index_json
+    get "/images/:id", ImageController, :show_json
   end
 end

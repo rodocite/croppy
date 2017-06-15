@@ -7,11 +7,6 @@ defmodule Croppy.ImageController do
     render(conn, "index.html", images: images)
   end
 
-  def index_json(conn, _) do
-    images = Repo.all(Image)
-    render(conn, "index.json", images: images)
-  end
-
   def new(conn, _) do
     changeset = Image.changeset(%Image{})
     render(conn, "new.html", changeset: changeset)
@@ -29,5 +24,15 @@ defmodule Croppy.ImageController do
         |> put_flash(:error, "Something went wrong")
         |> render("new.html", changeset: changeset)
     end
+  end
+
+  def index_json(conn, _) do
+    images = Repo.all(Image)
+    render(conn, "index.json", images: images)
+  end
+
+  def show_json(conn, %{"id" => id}) do
+    image = Repo.get(Image, id)
+    render(conn, "show.json", image: image)
   end
 end
